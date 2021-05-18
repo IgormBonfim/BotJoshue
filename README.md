@@ -29,6 +29,7 @@ Por conta disso, surgiu a ideia de fazer um bot para o Discord que contasse quan
 
 1) Primeiro deve ser instalada as dependencias do bot, no terminal, dentro da pasta, utilize npm install.
 2) Deverá ser criado um arquivo config.json, nele será adicionado o token do discord, a chave do google, e o prefixo (qualquer um a escolha), assim como na imagem abaixo:
+ 
 ![image](https://user-images.githubusercontent.com/83429569/118722195-427f0c80-b802-11eb-982c-58c2ddb35939.png)
 3) O bot deverá ser adicionado ao servidor.
 4) Ao executar o index.js o bot já estará online e funcionando.
