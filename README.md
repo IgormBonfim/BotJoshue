@@ -1,0 +1,2 @@
+# BotJoshue
+Bot para Discord
