@@ -40,7 +40,7 @@ Client.on("message", async (msg) => {
 
         function TempoMsg() {
             setTimeout(function() {
-                msg.channel.send(`Passaram-se ${msgtxt}, Joshua se atrasou (novamente)`);
+                msg.channel.send(`Passaram-se ${msgtxt}, será que o Joshua irá se atrasar? (novamente)`);
                 servidores.server.joshuavoltou = false;
                 Atrasador();
             }, tempo)}
@@ -52,14 +52,18 @@ Client.on("message", async (msg) => {
                 tempoAtraso()
                 function tempoAtraso() {
                     setTimeout(function() {
-                        atraso += 10
-                        console.log("Tempo de atraso atual:" + atraso)
-                        msg.channel.send(`Joshua está ${atraso} minutos atrasado`)
-                        Atrasador()
-                    }, 600000)}}} 
+                        if (servidores.server.joshuavoltou === false) {
+                            atraso += 10
+                            console.log("Tempo de atraso atual:" + atraso)
+                            msg.channel.send(`Joshua está ${atraso} minutos atrasado`)
+                            Atrasador()}
+                    }, 600000)
+                }
+            }
+        } 
     }
 
-    if (msg.content === prefixo + "joshua voltou") {
+    if (msg.content === prefixo + "voltou") {
         msg.reply("Finalmente")
         servidores.server.joshuavoltou = true;
     }
@@ -131,16 +135,16 @@ Client.on("message", async (msg) => {
         servidores.server.dispatcher.pause()
         msg.channel.send("**Música pausada** :pause_button:")
     }
-    if (msg.content === prefixo + "resume") { // +resume
+    if (msg.content === prefixo + "continuar") { // +continuar
         servidores.server.dispatcher.resume()
         msg.channel.send("**Música retomada** :arrow_forward:")
     }
     if (msg.content === prefixo + "sair") {
-        msg.member.voice.channel.leave()
+        parando()
         servidores.server.connection = null;
         servidores.server.dispatcher = null;
         servidores.server.tocando = false;
-        parando()
+        msg.member.voice.channel.leave()
     }
     if (msg.content === prefixo + "proxima") {
         servidores.server.fila.shift()
@@ -149,14 +153,7 @@ Client.on("message", async (msg) => {
         console.log("comando de proximo utilizado")
     }
     if (msg.content === prefixo + "parar") { //+parar
-        const parando = () => {
-            console.log("Comando Parando utilizado ")
-            while (servidores.server.fila.length > 0) {
-                servidores.server.fila.shift()
-            } servidores.server.tocando = false;
-            parador()
         parando()
-        }
     }
 });
 
@@ -183,26 +180,14 @@ const tocador = () => {
     }
 }
 
-const parador = () => {
-    console.log("Parador Iniciado");
-    if (servidores.server.tocando === false) {
-        const lista = servidores.server.fila[0];
-        servidores.server.tocando = false;
-        servidores.server.dispatcher = servidores.server.connection.play(ytdl(lista, {filter:"audioonly"}));
-
-        servidores.server.dispatcher.on("finish", () => {
-            servidores.server.fila.shift()
-            console.log("Musica encerrada, proxima musica:" + servidores.server.fila[0])
-            servidores.server.tocando = false;
-            if (servidores.server.fila.length > 0) {
-                parador()
-            }
-            else {
-                servidores.server.dispatcher = null;
-            }
-    
-        });
-    }
+const parando = () => {
+    console.log("Comando Parando utilizado ")
+    while (servidores.server.fila.length > 0) {
+        servidores.server.fila.shift()
+    } 
+    servidores.server.tocando = false;
+    servidores.server.dispatcher = servidores.server.connection.play(ytdl(servidores.server.fila[0], {filtar: "audioonly"}));
+    servidores.server.dispatcher = null
 }
 
 Client.login(configs.token_discord)
