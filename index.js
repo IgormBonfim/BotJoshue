@@ -32,10 +32,14 @@ Client.on("message", async (msg) => {
     // commandos
     if (msg.content.startsWith(prefixo + "joshua")) {
         let msgtxt = msg.content.slice(8)
+        let numerotxt = msgtxt.split(" ")
+        let numero = Number(numerotxt[0])
 
-        if (servidores.server.contadorligado === false) {
-            let numerotxt = msgtxt.split(" ")
-            let tempo = Number(numerotxt[0])*60000;
+        if (msgtxt.length === 0 || numero/numero != 1){
+            msg.channel.send("Valor invalido, não foi possível iniciar o contador")
+        } else if (servidores.server.contadorligado === false) {
+
+            let tempo = numero*60000;
             let atraso = 0;
             msg.reply(`Iniciando contagem de ${msgtxt}`);
             servidores.server.contadorligado = true;
@@ -70,8 +74,9 @@ Client.on("message", async (msg) => {
                 }
             } 
         } else {
-            msg.channel.send(`O contador já está ligado, atualmente de ${msgtxt}`)
+            msg.channel.send(`O contador de atraso já está em funcionamento`)
         }
+
     }
 
     if (msg.content === prefixo + "voltou") {
