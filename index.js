@@ -16,7 +16,8 @@ servidores = {
         dispatcher: null,
         fila: [],
         tocando: false,
-        joshuavoltou: true
+        joshuavoltou: true,
+        contadorligado: false
     }
 }
 
@@ -31,41 +32,53 @@ Client.on("message", async (msg) => {
     // commandos
     if (msg.content.startsWith(prefixo + "joshua")) {
         let msgtxt = msg.content.slice(8)
-        msg.reply(`Iniciando contagem de ${msgtxt}`);
-        let numerotxt = msgtxt.split(" ")
-        let tempo = Number(numerotxt[0])*60000;
-        let atraso = 0;
-        console.log(tempo);
-        TempoMsg();
 
-        function TempoMsg() {
-            setTimeout(function() {
-                msg.channel.send(`Passaram-se ${msgtxt}, será que o Joshua irá se atrasar? (novamente)`);
-                servidores.server.joshuavoltou = false;
-                Atrasador();
-            }, tempo)}
-
-
-        const Atrasador = () => {
-            if (servidores.server.joshuavoltou === false) {
-                console.log("Contador de atraso iniciado.")
-                tempoAtraso()
-                function tempoAtraso() {
-                    setTimeout(function() {
-                        if (servidores.server.joshuavoltou === false) {
-                            atraso += 10
-                            console.log("Tempo de atraso atual:" + atraso)
-                            msg.channel.send(`Joshua está ${atraso} minutos atrasado`)
-                            Atrasador()}
-                    }, 600000)
+        if (servidores.server.contadorligado === false) {
+            let numerotxt = msgtxt.split(" ")
+            let tempo = Number(numerotxt[0])*60000;
+            let atraso = 0;
+            msg.reply(`Iniciando contagem de ${msgtxt}`);
+            servidores.server.contadorligado = true;
+            servidores.server.joshuavoltou = false;
+            TempoMsg();
+            console.log(`Começando contagem de ${tempo}`)
+    
+            function TempoMsg() {
+                setTimeout(function() {
+                    if (servidores.server.joshuavoltou === false) {
+                        msg.channel.send(`Passaram-se ${msgtxt}, será que o Joshua irá se atrasar? (novamente)`);
+                        Atrasador();
+                    } else {
+                        msg.channel.send(`Joshua voltou dentro do prazo estipulado de ${msgtxt}`)
+                    }
+                }, tempo)}
+    
+    
+            const Atrasador = () => {
+                if (servidores.server.joshuavoltou === false) {
+                    console.log("Contador de atraso iniciado.")
+                    tempoAtraso()
+                    function tempoAtraso() {
+                        setTimeout(function() {
+                            if (servidores.server.joshuavoltou === false) {
+                                atraso += 10
+                                console.log("Tempo de atraso atual:" + atraso)
+                                msg.channel.send(`Joshua está ${atraso} minutos atrasado`)
+                                Atrasador()}
+                        }, 600000)
+                    }
                 }
-            }
-        } 
+            } 
+        } else {
+            msg.channel.send(`O contador já está ligado, atualmente de ${msgtxt}`)
+        }
     }
 
     if (msg.content === prefixo + "voltou") {
         msg.reply("Finalmente")
+        console.log("Contador encerrado")
         servidores.server.joshuavoltou = true;
+        servidores.server.contadorligado = false;
     }
 
     if (msg.content === prefixo + "entrar") { //+entrar
