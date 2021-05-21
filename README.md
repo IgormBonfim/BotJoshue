@@ -1,4 +1,4 @@
-![BotJoshue 2](https://user-images.githubusercontent.com/83429569/118735523-00ac9100-b817-11eb-8fb6-154282d2c22b.png)
+![BotJoshue](https://user-images.githubusercontent.com/83429569/119198963-a0109480-ba60-11eb-9e81-c2d672bed9f2.png)
 
 > Status: Em Desenvolvimento ⚠️
 
