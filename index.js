@@ -273,7 +273,7 @@ const parando = () => {
         servidores.server.fila.shift()
     } 
     servidores.server.tocando = false;
-    servidores.server.dispatcher = servidores.server.connection.play(ytdl(servidores.server.fila[0].link, {filtar: "audioonly"}));
+    servidores.server.dispatcher = servidores.server.connection.play(ytdl(servidores.server.fila[0], {filtar: "audioonly"}));
     servidores.server.dispatcher = null
 }
 
