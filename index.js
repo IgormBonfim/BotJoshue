@@ -39,7 +39,6 @@ Client.on("message", async (msg) => {
         if (msgtxt.length === 0 || numero/numero != 1){
             msg.channel.send("Valor invalido, não foi possível iniciar o contador")
         } else if (servidores.server.contadorligado === false) {
-
             let tempo = numero*60000;
             let atraso = 0;
             msg.reply(`Iniciando contagem de ${msgtxt}`);
@@ -145,8 +144,7 @@ Client.on("message", async (msg) => {
 
                     const embed = new Discord.MessageEmbed()
                     .setColor([51,209,255])
-                    .setAuthor("JoshueBot")
-                    .setTitle(`Música adicionada a fila:`)
+                    .setDescription(`Música adicionada a fila:`)
                     .addField(
                         MusicaInfo.titulo,
                         MusicaInfo.canal
@@ -177,8 +175,7 @@ Client.on("message", async (msg) => {
 
                     const embed = new Discord.MessageEmbed()
                     .setColor([51,209,255])
-                    .setAuthor("JoshueBot")
-                    .setTitle(`Música adicionada a fila:`)
+                    .setDescription(`Música adicionada a fila:`)
                     .addField(
                         MusicaInfo.titulo,
                         MusicaInfo.canal
@@ -191,13 +188,25 @@ Client.on("message", async (msg) => {
         } 
     }
 
-    if (msg.content === prefixo + "pause") { // +pause
+    if (msg.content === prefixo + "pausar") { // +pause
         servidores.server.dispatcher.pause()
-        msg.channel.send("**Música pausada** :pause_button:")
+        msg.channel.send(new Discord.MessageEmbed()
+        .setColor([51,209,255])
+        .setDescription("Música pausada :pause_button:")
+        .addField(
+            servidores.server.fila[0].titulo,
+            servidores.server.fila[0].canal
+        ))
     }
     if (msg.content === prefixo + "continuar") { // +continuar
         servidores.server.dispatcher.resume()
-        msg.channel.send("**Música retomada** :arrow_forward:")
+        msg.channel.send(new Discord.MessageEmbed()
+        .setColor([51,209,255])
+        .setDescription("Música pausada :arrow_forward:")
+        .addField(
+            servidores.server.fila[0].titulo,
+            servidores.server.fila[0].canal
+        ))
     }
     if (msg.content === prefixo + "sair") {
         parando()
@@ -214,20 +223,30 @@ Client.on("message", async (msg) => {
     }
     if (msg.content === prefixo + "parar") { //+parar
         parando()
+        msg.channel.send(new Discord.MessageEmbed()
+        .setColor([51,209,255])
+        .setDescription("Fila de músicas limpa :stop_button:"))
     }
     if (msg.content === prefixo + "fila") {
-        const embedFila = new Discord.MessageEmbed()
-        .setColor([51,209,255])
-        .setAuthor("JoshueBot")
-        .setTitle("Músicas na fila:")
-
-        for (let i in servidores.server.fila) {
-            embedFila.addField(
-                `${Number(i) + 1}: ${servidores.server.fila[i].titulo}`,
-                servidores.server.fila[i].canal
+        if (servidores.server.fila.length > 0) {
+            const embedFila = new Discord.MessageEmbed()
+            .setColor([51,209,255])
+            .setDescription("Músicas na fila:")
+    
+            for (let i in servidores.server.fila) {
+                embedFila.addField(
+                    `${Number(i) + 1}: ${servidores.server.fila[i].titulo}`,
+                    servidores.server.fila[i].canal
+                )
+            }
+            msg.channel.send(embedFila)
+        }else {
+            msg.channel.send(new Discord.MessageEmbed()
+            .setColor([51,209,255])
+            .setAuthor("Joshue")
+            .setDescription(`Nenhuma música adicionada a fila, use ${prefixo}p <música> para adicionar a fila.`)
             )
         }
-        msg.channel.send(embedFila)
     }
     if (msg.content.startsWith(prefixo + "remover ")) {
         let remover = Number(msg.content.slice(9)) - 1;
