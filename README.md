@@ -1,4 +1,4 @@
-![BotJoshue 2](https://user-images.githubusercontent.com/83429569/118735523-00ac9100-b817-11eb-8fb6-154282d2c22b.png)
+![BotJoshue](https://user-images.githubusercontent.com/83429569/119198963-a0109480-ba60-11eb-9e81-c2d672bed9f2.png)
 
 > Status: Em Desenvolvimento ⚠️
 
@@ -43,6 +43,8 @@ Por conta disso, surgiu a ideia de fazer um bot para o Discord que contasse quan
 + Prefixo + pause (Comando para o bot pausar a música)
 + Prefixo + continuar (Comando para o bot continuar a tocar a música, deve ser utilizado após o pause)
 + Prefixo + proxima (Comando para o bot ir para a proxima música da fila)
++ Prefixo + fila (Comando para o bot mostrar a lista de músicas na fila no chat)
++ Prefixo + remover <posição da fila> (Comando para remover uma música da fila)
 + Prefixo + parar (Comando para o bot parar de tocar música e limpar a fila de músicas)
 + Prefixo + sair (Comando para o bot sair do canal de voz)
 + Prefixo + joshua <tempo> minutos (Comando para inicar a contagem do valor do tempo, sempre contará em minutos)
