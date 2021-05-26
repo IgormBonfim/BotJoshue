@@ -259,7 +259,7 @@ Client.on("message", async (msg) => {
             servidores.server.fila[remover].canal
         )
         msg.channel.send(embedRemovida)
-        servidores.server.fila.splice(remover, 1)
+        delete servidores.server.fila[remover]
     }
 });
 
