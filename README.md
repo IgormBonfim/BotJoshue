@@ -1,7 +1,5 @@
 ![BotJoshue](https://user-images.githubusercontent.com/83429569/119198963-a0109480-ba60-11eb-9e81-c2d672bed9f2.png)
 
-> Status: Em Desenvolvimento ⚠️
-
 <h2>Bot para Discord desenvolvido com proposito de colocar em prática os aprendizados em JavaScript/Node.js</h2>
 
 <h3>Como surgiu a ideia?</h3> 
@@ -13,12 +11,12 @@ Por conta disso, surgiu a ideia de fazer um bot para o Discord que contasse quan
 + JavaScript
 + Node.js
 + Discord.js
-+ Google API
++ Youtube API
 
 <h3>O que ele pode fazer?</h3>
 
 + Contar um intervalo de tempo.
-+ Conta quanto tempo de atraso após o intervalo de tempo.
++ Contar quanto tempo de atraso após o intervalo de tempo acabar.
 + Tocar músicas do youtube pela URL inserida.
 + Tocar músicas do youtube por via de pesquisa.
 + Pausar a música.

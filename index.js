@@ -8,7 +8,7 @@ prefixo = configs.prefixo,
 youtube = new google.youtube_v3.Youtube({
     version: "v3",
     auth: configs.chave_google
-});
+}),
 
 servidores = {
     "server": {
